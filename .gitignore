@@ -1,0 +1,9 @@
+# mac os stuff
+.DS_Store
+
+# output files
+*pdf
+*root
+
+# misc scripts
+*sh
