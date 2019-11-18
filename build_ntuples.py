@@ -16,8 +16,8 @@ def toy_weights(total_yield, num_events):
 
 
 def get_samples(num_events):
-    dist_s1 = toy_distribution(10, 15, 350, num_events)
-    dist_s2 = toy_distribution(15, 20, 150, num_events)
+    dist_s1 = toy_distribution(10, 12, 350, num_events)
+    dist_s2 = toy_distribution(25, 10, 500, num_events)
     dist_b  = toy_distribution(10, 25, 0, num_events)
     return [dist_s1, dist_s2, dist_b]
 
@@ -31,11 +31,11 @@ def get_weights(yield_s1, yield_s2, yield_b, num_events):
 
 def create_pseudodata(yield_s1, yield_s2, yield_b):
     # create a dataset with some slightly different composition
-    scale_s1 = 0.93
-    scale_s2 = 1.03
-    scale_b = 1.01
-    dist_s1 = toy_distribution(10, 15, 350, int(yield_s1*scale_s1))
-    dist_s2 = toy_distribution(15, 20, 150, int(yield_s2*scale_s2))
+    scale_s1 = 0.7
+    scale_s2 = 1.3
+    scale_b = 1.05
+    dist_s1 = toy_distribution(10, 12, 350, int(yield_s1*scale_s1))
+    dist_s2 = toy_distribution(25, 10, 500, int(yield_s2*scale_s2))
     dist_b  = toy_distribution(10, 25, 0, int(yield_b*scale_b))
     pseudodata = np.hstack((dist_s1, dist_s2, dist_b))
     np.random.shuffle(pseudodata)
