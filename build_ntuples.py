@@ -92,7 +92,7 @@ def plot_distributions(data, weights, labels, pseudodata, bins):
     plt.legend(frameon=False)
     plt.xlabel(r"jet $p_T$ [GeV]")
     plt.ylabel("normalized")
-    plt.savefig("normalized.pdf")
+    plt.savefig("normalized.png", dpi=200)
 
     # plot stack
     plt.clf()
@@ -106,7 +106,7 @@ def plot_distributions(data, weights, labels, pseudodata, bins):
     plt.legend(frameon=False)
     plt.xlabel(r"jet $p_T$ [GeV]")
     plt.ylabel("events / " + bin_width_str + " GeV")
-    plt.savefig("stacked.pdf")
+    plt.savefig("stacked.png", dpi=200)
 
 
 if __name__ == '__main__':
