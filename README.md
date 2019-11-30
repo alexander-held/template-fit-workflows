@@ -2,7 +2,7 @@
 Building an example for a template profile likelihood fit.
 
 ## Sample creation
-The script ```build_ntuples.py``` creates predicted distributions for three processes, as well as the distribution of a fictitious measurement. The figure below visualizes the events created.
+The script ```build_inputs_expression.py``` creates predicted distributions for three processes, as well as the distribution of a fictitious measurement. The figure below visualizes the events created.
 
 <img src="figures/stacked.png" alt="distribution of simulated processes and pseudodata" width="640"/>
 
