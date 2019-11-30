@@ -5,6 +5,10 @@
 *pdf
 *png
 *root
+*json
 
 # misc scripts
 *sh
+
+# notebooks
+.ipynb_checkpoints/

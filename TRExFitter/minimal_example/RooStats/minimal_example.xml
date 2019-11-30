@@ -1,0 +1,17 @@
+<!--
+This xml file created automatically on: 
+2019-11-30
+-->
+<!DOCTYPE Combination  SYSTEM 'HistFactorySchema.dtd'>
+
+<Combination OutputFilePrefix="minimal_example/RooStats/minimal_example" >
+
+
+  <Input>./minimal_example/RooStats//minimal_example_Signal_region.xml</Input>
+
+  <Measurement Name="minimal_example" Lumi="1" LumiRelErr="0.1" ExportOnly="True"  >
+    <POI>Signal_norm</POI>  
+    <ParamSetting Const="True">Lumi</ParamSetting>
+  </Measurement> 
+
+</Combination>

@@ -1,0 +1,27 @@
+<!--
+This xml file created automatically on: 
+2019-11-30
+-->
+<!DOCTYPE Channel  SYSTEM 'HistFactorySchema.dtd'>  
+
+  <Channel Name="Signal_region" InputFile="" >
+
+    <Data HistoName="Signal_region_data_regBin" InputFile="minimal_example/Histograms/minimal_example_Signal_region_histos.root" HistoPath=""  /> 
+
+    <StatErrorConfig RelErrorThreshold="0.01" ConstraintType="Poisson" /> 
+
+    <Sample Name="Background"  HistoPath=""  HistoName="Signal_region_Background_regBin"  InputFile="minimal_example/Histograms/minimal_example_Signal_region_histos.root"  NormalizeByTheory="True" >
+      <StatError Activate="True"  InputFile=""  HistoName=""  HistoPath=""  /> 
+      <OverallSys Name="Luminosity"  High="1.02"  Low="0.98"   /> 
+    </Sample>
+
+
+    <Sample Name="Signal"  HistoPath=""  HistoName="Signal_region_Signal_regBin"  InputFile="minimal_example/Histograms/minimal_example_Signal_region_histos.root"  NormalizeByTheory="True" >
+      <StatError Activate="True"  InputFile=""  HistoName=""  HistoPath=""  /> 
+      <OverallSys Name="Luminosity"  High="1.02"  Low="0.98"   /> 
+      <NormFactor Name="Signal_norm"  Val="1"  High="2"  Low="0"  Const="False"   /> 
+    </Sample>
+
+
+
+  </Channel>  
