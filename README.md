@@ -1,7 +1,18 @@
-# Template fit toy examples
-Examples for template profile likelihood fits.
+# Template fit workflows
 
-## Minimal example
+- [Example 1: Minimal example](#example-1-minimal-example)
+    - [Input creation](#input-creation)
+    - [Subsequent processing and statistical analysis](#subsequent-processing-and-statistical-analysis)
+        - [1. Traditional approach](#1-traditional-approach)
+        - [2. Using pyhf to fit the workspace](#2-using-pyhf-to-fit-the-workspace)
+        - [3. Alternative approach within the python ecosystem](#3-alternative-approach-within-the-python-ecosystem)
+            - [3.a Template histogram production with FAST-HEP](#3a-template-histogram-production-with-fast-hep)
+            - [3.b Building a pyhf workspace from FAST-HEP dataframes](#3b-building-a-pyhf-workspace-from-fast-hep-dataframes)
+    - [Further comments and comparison](#further-comments-and-comparison)
+- [Example 2: Expressions for normalization factors](#example-2-expressions-for-normalization-factors)
+
+
+## Example 1: Minimal example
 The minimal example consists of two processes, a signal and a background process.
 It also includes a pseudodataset.
 
@@ -51,21 +62,28 @@ The notebook `pyhf_from_dataframe.ipynb` shows how to read the FAST-HEP output a
 The resulting output, `workspace_from_dataframe.json` should be consistent with the workspace obtained in approach 2.
 The statistical inference can then be performed analogous to approach 2 with pyhf, consequently leading to the same measured signal normalization.
 
-##### Further comments on this approach
-
 The workflow in this approach is:
 ```
 ntuples -> FAST-HEP -> dataframes -> custom conversion -> workspace -> pyhf -> inference
 ```
 
-There is significant overlap in the information needed to produce the histograms with FAST-HEP, and in the construction of the workspace.
-This example will evolve gradually towards being steered by a central configuration file that can be used in all steps, with automated handover between the different software frameworks in use.
+### Further comments and comparison
+
+In the third approach, there is significant overlap in the information needed to produce the histograms with FAST-HEP, and in the construction of the workspace.
+The first approach solves this with a monolithic framework that operates from a single configuration file, included in `TRExFitter/minimal_example.config`.
+This third workflow will evolve gradually towards also being steered by a central configuration file that can be used in all steps, with automated handover between the different software frameworks in use.
+
+The first and second approaches show that it is possible to factorize the workflow into multiple independent tasks, where pyhf can be substitute to build a likelihood from a workspace and perform statistical inference.
+The third workflow takes this one step further, also factoring out the production of template histograms.
+There are further steps that can be factorized.
+One example is post-processing of the template histograms, applying operations like smoothing or symmetrization.
+These aspects are not yet included.
 
 ROOT appears in this approach only as the file format for the initial inputs, which are processed with [uproot](https://github.com/scikit-hep/uproot) and could easily be provided in another format.
 
 ---
 
-## Expressions for normalization factors
+## Example 2: Expressions for normalization factors
 The script `build_inputs_expression.py` creates predicted distributions for three processes, as well as the distribution of a fictitious measurement. The figure below visualizes the events created.
 
 <img src="figures/stacked.png" alt="distribution of simulated processes and pseudodata" width="640"/>
