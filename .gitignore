@@ -2,10 +2,12 @@
 .DS_Store
 
 # output files
+output/*
 *pdf
 *png
 *root
 *json
+*csv
 
 # misc scripts
 *sh

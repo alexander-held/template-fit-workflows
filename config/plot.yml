@@ -1,0 +1,16 @@
+weights: [weighted]
+yscale: linear
+ylabel: Number of Events
+legend:
+    ncol: 2
+    loc: 'upper right'
+plot_signal: stack
+
+annotations:
+    - text: Toy example
+      position: [0, 1.05]
+      fontweight: bold
+      fontsize: large
+
+bin_variable_replacements:
+    jet_pt_binned: "jet  $p_T$ [GeV]"

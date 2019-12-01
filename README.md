@@ -9,19 +9,61 @@ It also includes a pseudodataset.
 The ntuples are built with `build_minimal_example_ntuples.py`.
 The processes "signal" and "background" are used to build the pseudodataset, and the signal contribution is scaled by a factor 1.2.
 
-### Common fit approach
+### Subsequent processing and statistical analysis
+This repository shows three different workflows shown in this repository, which start with the ntuples and end with statistical inference.
+
+#### 1. Traditional approach
 A fit of the predicted distributions to the pseudodataset can be performed with TRExFitter, a tool used in the [ATLAS Collaboration](https://atlas.cern/) to steer profile likelihood fits.
 The configuration is provided in `TRExFitter/minimal_example.config`.
 It also produces a [RooFit](https://root.cern.ch/roofit) workspace.
 
 The fit performed with TRExFitter determines the signal normalization to be `1.19 ± 0.03`, and also uses a luminosity uncertainty of 2% that is slightly pulled and significantly constrained (to `0.10 ± 0.23`).
 
-### Using pyhf to fit the workspace
-The notebook `pyhf_from_xml.ipynb` shows how to convert the workspace to python and subsequently determine the best fit configuration with [iminuit](https://github.com/scikit-hep/iminuit).
+The workflow in this approach can be summarized as:
+```
+ntuples -> TRExFitter -> inference
+```
+
+#### 2. Using pyhf to fit the workspace
+The notebook `pyhf_from_xml.ipynb` shows how to convert the workspace created with TRExFitter to python and subsequently determine the best fit configuration with [iminuit](https://github.com/scikit-hep/iminuit).
 The resulting measured signal normalization is `1.19 ± 0.04`.
 
-### Processing ntuples with FAST-HEP
+This workflow is:
+```
+ntuples -> TRExFitter -> workspace -> pyhf -> inference
+```
+
+#### 3. Alternative approach within the python ecosystem
+This approach makes no use of TRExFitter and operates fully with python-based tools.
+
+##### 3.a Template histogram production with FAST-HEP
 The [FAST-HEP](http://fast-hep.web.cern.ch/fast-hep/public/) package can be used to build template histograms.
+The full workflow, including the output visualization, can be run via `make plotter`.
+There are three steps to this workflow:
+- `fast_curator` reads the produced ntuples and extracts metadata, saved to `output/file_list.yml`.
+- `fast_carpenter` is steered by the configuration file in `config/sequence.yml`, it has two stages:
+    - Event selection: applies cuts, the cutflow is a `.csv` file found in `output/`.
+    - Dataframe creation: creates histograms, saved as `.csv` in `output/`.
+- `fast_plotter` visualizes the histograms, configured by `config/plot.yml`, with output `.png` files saved in `output/`.
+
+##### 3.b Building a pyhf workspace from FAST-HEP dataframes
+The notebook `pyhf_from_dataframe.ipynb` shows how to read the FAST-HEP output and turn it into a JSON workspace that can be read by pyhf.
+The resulting output, `workspace_from_dataframe.json` should be consistent with the workspace obtained in approach 2.
+The statistical inference can then be performed analogous to approach 2 with pyhf, consequently leading to the same measured signal normalization.
+
+##### Further comments on this approach
+
+The workflow in this approach is:
+```
+ntuples -> FAST-HEP -> dataframes -> custom conversion -> workspace -> pyhf -> inference
+```
+
+There is significant overlap in the information needed to produce the histograms with FAST-HEP, and in the construction of the workspace.
+This example will evolve gradually towards being steered by a central configuration file that can be used in all steps, with automated handover between the different software frameworks in use.
+
+ROOT appears in this approach only as the file format for the initial inputs, which are processed with [uproot](https://github.com/scikit-hep/uproot) and could easily be provided in another format.
+
+---
 
 ## Expressions for normalization factors
 The script `build_inputs_expression.py` creates predicted distributions for three processes, as well as the distribution of a fictitious measurement. The figure below visualizes the events created.

@@ -1,0 +1,21 @@
+# stages to run through
+# keys are the stage names
+# values are python classes
+stages:
+  - EventSelection: fast_carpenter.selection.CutFlow
+  - JetPt: fast_carpenter.summary.BinnedDataframe
+
+# perform event selection for subsequent stages
+EventSelection:
+  weights: {weighted: weight}
+  selection:
+    All:
+      - jet_pt > 200
+      - jet_pt < 800
+
+# make a binned dataframe
+JetPt:
+  dataset_col: true
+  binning:
+    - {in: jet_pt, out: jet_pt_binned , bins: {low: 200, high: 800, nbins: 6}}
+  weights: {weighted: weight}
