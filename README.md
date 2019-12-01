@@ -72,6 +72,7 @@ The statistical inference can then be performed analogous to approach 2 with pyh
 In the third approach, there is significant overlap in the information needed to produce the histograms with FAST-HEP, and in the construction of the workspace.
 The first approach solves this with a monolithic framework that operates from a single configuration file, included in `TRExFitter/minimal_example.config`.
 This third workflow will evolve gradually towards also being steered by a central configuration file that can be used in all steps, with automated handover between the different software frameworks in use.
+Another example with some aspects of how such a file may look like is shown in [lukasheinrich/pyhfinput](https://github.com/lukasheinrich/pyhfinput).
 
 The first and second approaches show that it is possible to factorize the workflow into multiple independent tasks, where pyhf can be substitute to build a likelihood from a workspace and perform statistical inference.
 The third workflow takes this one step further, also factoring out the production of template histograms.
